@@ -2,7 +2,7 @@ package basePrice
 
 import "testing"
 
-func TestCalculateBasePrice(t testing.T) {
+func TestCalculateBasePrice(t *testing.T) {
 
 	trip1 := TripParameters{Distance: 8.5, Duration: 20}
 
