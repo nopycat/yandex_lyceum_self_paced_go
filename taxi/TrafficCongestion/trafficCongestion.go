@@ -1,7 +1,7 @@
 package trafficCongestion
 
 import (
-	"awesomeProject/taxi/weatherCoefficient"
+	weatherCoefficient "awesomeProject/taxi/WeatherCoefficient"
 )
 
 func GetWeatherMultiplier(weather weatherCoefficient.WeatherData) float64 {
