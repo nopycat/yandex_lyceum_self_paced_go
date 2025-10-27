@@ -1,7 +1,11 @@
 package trafficCongestion
 
 import (
+	basePrice "awesomeProject/taxi/BasePrice"
+	timeCoefficient "awesomeProject/taxi/TimeCoefficients"
 	weatherCoefficient "awesomeProject/taxi/WeatherCoefficient"
+	"math"
+	"time"
 )
 
 func GetWeatherMultiplier(weather weatherCoefficient.WeatherData) float64 {
@@ -36,4 +40,15 @@ type RealTrafficClient struct{}
 
 func (c *RealTrafficClient) GetTrafficLevel(lat, lng float64) int {
 	return 3 // Константное значение в нашем примере, в реальности оно будет вычисляться сервисом Яндекс Карты
+}
+
+func (c *PriceCalculator) CalculatePrice(trip basePrice.TripParameters, now time.Time, weather weatherCoefficient.WeatherData, lat, lng float64) float64 {
+	base := basePrice.CalculateBasePrice(trip)
+	timeMult := timeCoefficient.GetTimeMultiplier(now)
+	weatherMult := GetWeatherMultiplier(weather)
+	trafficMult := GetTrafficMultiplier(c.TrafficClient.GetTrafficLevel(lat, lng))
+
+	finalPrice := base * timeMult * weatherMult * trafficMult
+
+	return basePrice.ApplyPriceLimits(math.Round(finalPrice))
 }
