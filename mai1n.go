@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"sort"
 )
 
@@ -117,5 +118,5 @@ func (s *Player) calculateRating() {
 }
 
 func main() {
-
+	fmt.Println("dkgndgdgnkdg")
 }
